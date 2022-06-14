@@ -4,6 +4,9 @@ import boto3
 
 
 def get_s3_client(access_key, aws_secret_key, endpoint):
+    """
+    Creates an s3 client that will connect to our given endpoint.
+    """
     session = boto3.session.Session()
     client = session.client(
         service_name="s3",
@@ -16,6 +19,9 @@ def get_s3_client(access_key, aws_secret_key, endpoint):
 
 
 def upload_to_s3(s3_client, bucket_name, bucket_path, file_full_path, dest_file):
+    """
+    Uploads a file to S3 using S3 client.
+    """
     try:
         s3_client.upload_file(file_full_path, bucket_name, f"{bucket_path}/{dest_file}")
         os.remove(file_full_path)

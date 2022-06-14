@@ -6,7 +6,13 @@ from project.utils.s3 import get_s3_client, upload_to_s3
 
 
 def backup_postgres_handler(logger):
-    config = BaseConfig()
+    """
+    Function to backup postgres database. This will first get the variables from environment variables.
+    Using these variables and system time, we will then generate the filenames to save to s3. Finally,
+    we will perform logical backup of the postgres database, compress it and upload it to S3. At the end,
+    this function will clear all the redundant files from local disk.
+    """
+    config = BaseConfig()  # * Load configs from Environment variables.
     host = config.POSTGRES_HOST
     port = config.POSTGRES_PORT
     user = config.POSTGRES_USER
@@ -30,6 +36,7 @@ def backup_postgres_handler(logger):
         "Backing up {} database to {}".format(f"{host}:{port}", local_file_path)
     )
 
+    # * Backing up Postgres Database *#
     _ = backup_postgres_db(
         host=host,
         port=port,
@@ -42,8 +49,12 @@ def backup_postgres_handler(logger):
 
     logger.info("Backup complete")
     logger.info("Compressing {}".format(local_file_path))
-    comp_file = compress_file(local_file_path)
+
+    comp_file = compress_file(local_file_path)  # * Compressing the file. *#
+
     logger.info("Uploading {} to Amazon S3...".format(comp_file))
+
+    # * Get an boto3.client object and upload the compressed file to s3.  *#
     s3_client = get_s3_client(
         access_key=access_key, aws_secret_key=secret_key, endpoint=endpoint
     )

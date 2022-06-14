@@ -4,6 +4,10 @@ from dotenv import load_dotenv
 
 
 class BaseConfig:
+    """
+    BaseConfig class that loads configurations from Environment Variables.
+    """
+
     load_dotenv()
     POSTGRES_HOST = os.getenv("POSTGRES_HOST")
     POSTGRES_PORT = os.getenv("POSTGRES_PORT")
@@ -16,4 +20,3 @@ class BaseConfig:
     SECRET_KEY = os.getenv("SECRET_KEY")
     BUCKET_NAME = os.getenv("BUCKET_NAME")
     S3_ENDPOINT = os.getenv("S3_ENDPOINT")
-    print(S3_ENDPOINT)
