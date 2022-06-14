@@ -28,7 +28,9 @@ def backup_postgres_db(host, port, user, password, dest_file, verbose, logger):
             )
             output = process.communicate()[0]
             if int(process.returncode) != 0:
-                logger.error("Command failed. Return code : {}".format(process.returncode))
+                logger.error(
+                    "Command failed. Return code : {}".format(process.returncode)
+                )
                 exit(1)
             return output
         except Exception as e:
@@ -51,7 +53,9 @@ def backup_postgres_db(host, port, user, password, dest_file, verbose, logger):
             )
             output = process.communicate()[0]
             if process.returncode != 0:
-                logger.error("Command failed. Return code : {}".format(process.returncode))
+                logger.error(
+                    "Command failed. Return code : {}".format(process.returncode)
+                )
                 exit(1)
             return output
         except Exception as e:

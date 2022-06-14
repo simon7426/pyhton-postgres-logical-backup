@@ -1,7 +1,10 @@
 import os
 
+from dotenv import load_dotenv
+
 
 class BaseConfig:
+    load_dotenv()
     POSTGRES_HOST = os.getenv("POSTGRES_HOST")
     POSTGRES_PORT = os.getenv("POSTGRES_PORT")
     POSTGRES_USER = os.getenv("POSTGRES_USER")
@@ -13,3 +16,4 @@ class BaseConfig:
     SECRET_KEY = os.getenv("SECRET_KEY")
     BUCKET_NAME = os.getenv("BUCKET_NAME")
     S3_ENDPOINT = os.getenv("S3_ENDPOINT")
+    print(S3_ENDPOINT)

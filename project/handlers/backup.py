@@ -1,5 +1,4 @@
 import datetime
-import sys
 
 from project.configs import BaseConfig
 from project.utils.backup import backup_postgres_db, clean_file, compress_file
@@ -27,7 +26,6 @@ def backup_postgres_handler(logger):
     filename_compressed = "{}.gz".format(filename)
     local_file_path = "{}{}".format(backup_path, filename)
 
-
     logger.info(
         "Backing up {} database to {}".format(f"{host}:{port}", local_file_path)
     )
@@ -39,7 +37,7 @@ def backup_postgres_handler(logger):
         password=password,
         dest_file=local_file_path,
         verbose=verbose,
-        logger = logger,
+        logger=logger,
     )
 
     logger.info("Backup complete")

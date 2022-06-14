@@ -7,11 +7,10 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 handler = logging.StreamHandler(sys.stdout)
 handler.setLevel(logging.DEBUG)
-formatter = logging.Formatter(
-    "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-)
+formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
 handler.setFormatter(formatter)
 logger.addHandler(handler)
+
 
 def main(arg):
     if arg == "backup":
@@ -25,5 +24,4 @@ if __name__ == "__main__":
     if len(sys.argv) != 2:
         logger.error("Please provide a valid argument.")
         sys.exit(1)
-
     main(sys.argv[1].lower())
